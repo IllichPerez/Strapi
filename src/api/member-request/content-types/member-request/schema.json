@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "members_requests",
+  "info": {
+    "singularName": "member-request",
+    "pluralName": "members-requests",
+    "displayName": "Members requests"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "text"
+    },
+    "member": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "church",
     "pluralName": "churches",
-    "displayName": "churches"
+    "displayName": "churches",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,7 +13,21 @@
   "pluginOptions": {},
   "attributes": {
     "name": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
       "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "members": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "belongs_to_the_church"
     }
   }
 }
