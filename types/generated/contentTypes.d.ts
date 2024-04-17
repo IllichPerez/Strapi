@@ -728,6 +728,9 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'api::church.church'
     >;
+    firstname: Attribute.String;
+    lastname: Attribute.String;
+    birthdate: Attribute.Date;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

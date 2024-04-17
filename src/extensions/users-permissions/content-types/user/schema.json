@@ -70,6 +70,15 @@
       "relation": "manyToOne",
       "target": "api::church.church",
       "inversedBy": "members"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "birthdate": {
+      "type": "date"
     }
   }
 }
