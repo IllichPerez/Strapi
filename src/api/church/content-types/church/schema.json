@@ -28,6 +28,9 @@
       "relation": "oneToMany",
       "target": "plugin::users-permissions.user",
       "mappedBy": "belongs_to_the_church"
+    },
+    "invitation_link": {
+      "type": "string"
     }
   }
 }

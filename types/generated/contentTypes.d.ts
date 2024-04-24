@@ -815,6 +815,7 @@ export interface ApiChurchChurch extends Schema.CollectionType {
       'oneToMany',
       'plugin::users-permissions.user'
     >;
+    invitation_link: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
