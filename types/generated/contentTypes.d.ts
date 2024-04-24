@@ -815,7 +815,19 @@ export interface ApiChurchChurch extends Schema.CollectionType {
       'oneToMany',
       'plugin::users-permissions.user'
     >;
-    invitation_link: Attribute.String;
+    invitation_id: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^(?=.*\\d)(?=.*[a-zA-Z])[\\dA-Za-z]{4}-[a-zA-Z\\d]{3}-[\\dA-Za-z]{4}$';
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^(?=.*\\d)(?=.*[a-zA-Z])[\\dA-Za-z]{4}-[a-zA-Z\\d]{3}-[\\dA-Za-z]{4}$';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

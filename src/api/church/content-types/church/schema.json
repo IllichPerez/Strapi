@@ -29,8 +29,12 @@
       "target": "plugin::users-permissions.user",
       "mappedBy": "belongs_to_the_church"
     },
-    "invitation_link": {
-      "type": "string"
+    "invitation_id": {
+      "type": "customField",
+      "options": {
+        "uuid-format": "^(?=.*\\d)(?=.*[a-zA-Z])[\\dA-Za-z]{4}-[a-zA-Z\\d]{3}-[\\dA-Za-z]{4}$"
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }
