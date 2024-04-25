@@ -35,6 +35,12 @@
         "uuid-format": "^(?=.*\\d)(?=.*[a-zA-Z])[\\dA-Za-z]{4}-[a-zA-Z\\d]{3}-[\\dA-Za-z]{4}$"
       },
       "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post",
+      "mappedBy": "church"
     }
   }
 }

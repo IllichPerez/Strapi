@@ -828,6 +828,11 @@ export interface ApiChurchChurch extends Schema.CollectionType {
           'uuid-format': '^(?=.*\\d)(?=.*[a-zA-Z])[\\dA-Za-z]{4}-[a-zA-Z\\d]{3}-[\\dA-Za-z]{4}$';
         }
       >;
+    posts: Attribute.Relation<
+      'api::church.church',
+      'oneToMany',
+      'api::post.post'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -888,6 +893,7 @@ export interface ApiPostPost extends Schema.CollectionType {
     singularName: 'post';
     pluralName: 'posts';
     displayName: 'post';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -897,6 +903,11 @@ export interface ApiPostPost extends Schema.CollectionType {
     slug: Attribute.UID<'api::post.post', 'title'>;
     image: Attribute.Media;
     content: Attribute.Blocks;
+    church: Attribute.Relation<
+      'api::post.post',
+      'manyToOne',
+      'api::church.church'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
