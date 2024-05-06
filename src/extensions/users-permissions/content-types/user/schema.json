@@ -78,7 +78,7 @@
       "type": "string"
     },
     "birthdate": {
-      "type": "string"
+      "type": "date"
     }
   }
 }

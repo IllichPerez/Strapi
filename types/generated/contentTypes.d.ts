@@ -730,7 +730,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     firstname: Attribute.String;
     lastname: Attribute.String;
-    birthdate: Attribute.String;
+    birthdate: Attribute.Date;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -902,7 +902,7 @@ export interface ApiPostPost extends Schema.CollectionType {
     title: Attribute.String & Attribute.Required;
     slug: Attribute.UID<'api::post.post', 'title'>;
     image: Attribute.Media;
-    content: Attribute.Blocks & Attribute.Required;
+    content: Attribute.Blocks;
     church: Attribute.Relation<
       'api::post.post',
       'manyToOne',
