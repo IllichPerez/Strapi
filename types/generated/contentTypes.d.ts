@@ -908,6 +908,7 @@ export interface ApiPostPost extends Schema.CollectionType {
       'manyToOne',
       'api::church.church'
     >;
+    description: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

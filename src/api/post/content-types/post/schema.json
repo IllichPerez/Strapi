@@ -36,6 +36,9 @@
       "relation": "manyToOne",
       "target": "api::church.church",
       "inversedBy": "posts"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }
