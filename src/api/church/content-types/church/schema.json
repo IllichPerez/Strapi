@@ -41,6 +41,17 @@
       "relation": "oneToMany",
       "target": "api::post.post",
       "mappedBy": "church"
+    },
+    "accepted_payment_methods": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::payment-method.payment-method"
+    },
+    "contributions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::contribution.contribution",
+      "mappedBy": "church"
     }
   }
 }

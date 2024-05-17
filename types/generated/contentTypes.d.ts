@@ -731,6 +731,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     firstname: Attribute.String;
     lastname: Attribute.String;
     birthdate: Attribute.Date;
+    contributions: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::contribution.contribution'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -833,6 +838,16 @@ export interface ApiChurchChurch extends Schema.CollectionType {
       'oneToMany',
       'api::post.post'
     >;
+    accepted_payment_methods: Attribute.Relation<
+      'api::church.church',
+      'oneToMany',
+      'api::payment-method.payment-method'
+    >;
+    contributions: Attribute.Relation<
+      'api::church.church',
+      'oneToMany',
+      'api::contribution.contribution'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -844,6 +859,67 @@ export interface ApiChurchChurch extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::church.church',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiContributionContribution extends Schema.CollectionType {
+  collectionName: 'contributions';
+  info: {
+    singularName: 'contribution';
+    pluralName: 'contributions';
+    displayName: 'Contribution';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    user: Attribute.Relation<
+      'api::contribution.contribution',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    church: Attribute.Relation<
+      'api::contribution.contribution',
+      'manyToOne',
+      'api::church.church'
+    >;
+    payment_method: Attribute.Relation<
+      'api::contribution.contribution',
+      'oneToOne',
+      'api::payment-method.payment-method'
+    >;
+    date: Attribute.Date & Attribute.Required;
+    reference_number: Attribute.String & Attribute.Required;
+    uuid: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'disable-regenerate': true;
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-regenerate': true;
+        }
+      >;
+    confirmed: Attribute.Boolean;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::contribution.contribution',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::contribution.contribution',
       'oneToOne',
       'admin::user'
     > &
@@ -880,6 +956,36 @@ export interface ApiMemberRequestMemberRequest extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::member-request.member-request',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPaymentMethodPaymentMethod extends Schema.CollectionType {
+  collectionName: 'payment_methods';
+  info: {
+    singularName: 'payment-method';
+    pluralName: 'payment-methods';
+    displayName: 'Payment methods';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::payment-method.payment-method',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::payment-method.payment-method',
       'oneToOne',
       'admin::user'
     > &
@@ -1031,7 +1137,9 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::church.church': ApiChurchChurch;
+      'api::contribution.contribution': ApiContributionContribution;
       'api::member-request.member-request': ApiMemberRequestMemberRequest;
+      'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
       'api::post.post': ApiPostPost;
       'api::prayer.prayer': ApiPrayerPrayer;
       'api::service.service': ApiServiceService;

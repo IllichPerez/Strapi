@@ -79,6 +79,12 @@
     },
     "birthdate": {
       "type": "date"
+    },
+    "contributions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::contribution.contribution",
+      "mappedBy": "user"
     }
   }
 }
