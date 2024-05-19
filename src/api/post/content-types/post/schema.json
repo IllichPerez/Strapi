@@ -39,6 +39,9 @@
     },
     "description": {
       "type": "text"
+    },
+    "video": {
+      "type": "string"
     }
   }
 }

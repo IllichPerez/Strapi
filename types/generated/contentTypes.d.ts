@@ -1019,6 +1019,7 @@ export interface ApiPostPost extends Schema.CollectionType {
       'api::church.church'
     >;
     description: Attribute.Text;
+    video: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
