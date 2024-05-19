@@ -40,12 +40,20 @@
     "uuid": {
       "type": "customField",
       "options": {
-        "disable-regenerate": true
+        "disable-regenerate": false,
+        "uuid-format": "^\\d{10}$"
       },
       "customField": "plugin::strapi-advanced-uuid.uuid"
     },
     "confirmed": {
       "type": "boolean"
+    },
+    "amount": {
+      "type": "float",
+      "required": true
+    },
+    "destination": {
+      "type": "string"
     }
   }
 }

@@ -899,16 +899,20 @@ export interface ApiContributionContribution extends Schema.CollectionType {
       undefined,
       undefined,
       {
-        'disable-regenerate': true;
+        'disable-regenerate': false;
+        'uuid-format': '^\\d{10}$';
       }
     > &
       Attribute.CustomField<
         'plugin::strapi-advanced-uuid.uuid',
         {
-          'disable-regenerate': true;
+          'disable-regenerate': false;
+          'uuid-format': '^\\d{10}$';
         }
       >;
     confirmed: Attribute.Boolean;
+    amount: Attribute.Float & Attribute.Required;
+    destination: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
