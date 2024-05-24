@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ministries",
+  "info": {
+    "singularName": "ministry",
+    "pluralName": "ministries",
+    "displayName": "ministry",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "church": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::church.church",
+      "inversedBy": "ministries"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "ministries"
+    },
+    "uuid": {
+      "type": "customField",
+      "options": {
+        "disable-regenerate": true,
+        "uuid-format": "^\\d{10}$"
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "admins": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "ministry"
+    }
+  }
+}

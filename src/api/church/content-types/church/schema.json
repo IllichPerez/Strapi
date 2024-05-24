@@ -16,8 +16,9 @@
       "type": "string",
       "required": true
     },
-    "address": {
-      "type": "string"
+    "physical_address": {
+      "type": "string",
+      "required": true
     },
     "slug": {
       "type": "uid",
@@ -52,6 +53,46 @@
       "relation": "oneToMany",
       "target": "api::contribution.contribution",
       "mappedBy": "church"
+    },
+    "billing_address": {
+      "type": "string",
+      "required": false
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "ministry_denomination": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true
+    },
+    "schedules": {
+      "type": "text"
+    },
+    "dogmatic_description": {
+      "type": "text"
+    },
+    "ministries": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ministry.ministry",
+      "mappedBy": "church"
+    },
+    "day_off": {
+      "type": "enumeration",
+      "enum": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viermes",
+        "sabado",
+        "domingo"
+      ]
     }
   }
 }

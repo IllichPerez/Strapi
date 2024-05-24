@@ -85,6 +85,63 @@
       "relation": "oneToMany",
       "target": "api::contribution.contribution",
       "mappedBy": "user"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "baptized": {
+      "type": "boolean"
+    },
+    "ecclesiastical_level": {
+      "type": "enumeration",
+      "enum": [
+        "explorando",
+        "iniciado",
+        "avanzado",
+        "no se"
+      ]
+    },
+    "identification_number": {
+      "type": "string"
+    },
+    "em_theological_studies": {
+      "type": "text"
+    },
+    "em_profile": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "em_years_of_ministry": {
+      "type": "integer"
+    },
+    "em_ministerial_rank": {
+      "type": "string"
+    },
+    "ministries": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::ministry.ministry",
+      "inversedBy": "users"
+    },
+    "ministry": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::ministry.ministry",
+      "inversedBy": "admins"
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "hombre",
+        "mujer"
+      ]
+    },
+    "em_title": {
+      "type": "string",
+      "required": true
     }
   }
 }

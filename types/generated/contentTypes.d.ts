@@ -736,6 +736,32 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::contribution.contribution'
     >;
+    phone: Attribute.String;
+    address: Attribute.String;
+    baptized: Attribute.Boolean;
+    ecclesiastical_level: Attribute.Enumeration<
+      ['explorando', 'iniciado', 'avanzado', 'no se']
+    >;
+    identification_number: Attribute.String;
+    em_theological_studies: Attribute.Text;
+    em_profile: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    em_years_of_ministry: Attribute.Integer;
+    em_ministerial_rank: Attribute.String;
+    ministries: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToMany',
+      'api::ministry.ministry'
+    >;
+    ministry: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToOne',
+      'api::ministry.ministry'
+    >;
+    gender: Attribute.Enumeration<['hombre', 'mujer']>;
+    em_title: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -813,7 +839,7 @@ export interface ApiChurchChurch extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
-    address: Attribute.String;
+    physical_address: Attribute.String & Attribute.Required;
     slug: Attribute.UID<'api::church.church', 'name'>;
     members: Attribute.Relation<
       'api::church.church',
@@ -847,6 +873,20 @@ export interface ApiChurchChurch extends Schema.CollectionType {
       'api::church.church',
       'oneToMany',
       'api::contribution.contribution'
+    >;
+    billing_address: Attribute.String;
+    email: Attribute.Email & Attribute.Required;
+    ministry_denomination: Attribute.String & Attribute.Required;
+    phone: Attribute.String & Attribute.Required;
+    schedules: Attribute.Text;
+    dogmatic_description: Attribute.Text;
+    ministries: Attribute.Relation<
+      'api::church.church',
+      'oneToMany',
+      'api::ministry.ministry'
+    >;
+    day_off: Attribute.Enumeration<
+      ['lunes', 'martes', 'miercoles', 'jueves', 'viermes', 'sabado', 'domingo']
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -960,6 +1000,68 @@ export interface ApiMemberRequestMemberRequest extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::member-request.member-request',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMinistryMinistry extends Schema.CollectionType {
+  collectionName: 'ministries';
+  info: {
+    singularName: 'ministry';
+    pluralName: 'ministries';
+    displayName: 'ministry';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    church: Attribute.Relation<
+      'api::ministry.ministry',
+      'manyToOne',
+      'api::church.church'
+    >;
+    users: Attribute.Relation<
+      'api::ministry.ministry',
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    uuid: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'disable-regenerate': true;
+        'uuid-format': '^\\d{10}$';
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-regenerate': true;
+          'uuid-format': '^\\d{10}$';
+        }
+      >;
+    admins: Attribute.Relation<
+      'api::ministry.ministry',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::ministry.ministry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::ministry.ministry',
       'oneToOne',
       'admin::user'
     > &
@@ -1144,6 +1246,7 @@ declare module '@strapi/types' {
       'api::church.church': ApiChurchChurch;
       'api::contribution.contribution': ApiContributionContribution;
       'api::member-request.member-request': ApiMemberRequestMemberRequest;
+      'api::ministry.ministry': ApiMinistryMinistry;
       'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
       'api::post.post': ApiPostPost;
       'api::prayer.prayer': ApiPrayerPrayer;
