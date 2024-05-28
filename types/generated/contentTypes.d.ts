@@ -761,7 +761,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'api::ministry.ministry'
     >;
     gender: Attribute.Enumeration<['hombre', 'mujer']>;
-    em_title: Attribute.String & Attribute.Required;
+    em_title: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
