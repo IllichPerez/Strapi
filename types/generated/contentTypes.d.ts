@@ -1122,12 +1122,47 @@ export interface ApiPostPost extends Schema.CollectionType {
     >;
     description: Attribute.Text;
     video: Attribute.String;
+    category: Attribute.Relation<
+      'api::post.post',
+      'oneToOne',
+      'api::post-category.post-category'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPostCategoryPostCategory extends Schema.CollectionType {
+  collectionName: 'post_categories';
+  info: {
+    singularName: 'post-category';
+    pluralName: 'post-categories';
+    displayName: 'post category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::post-category.post-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::post-category.post-category',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -1249,6 +1284,7 @@ declare module '@strapi/types' {
       'api::ministry.ministry': ApiMinistryMinistry;
       'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
       'api::post.post': ApiPostPost;
+      'api::post-category.post-category': ApiPostCategoryPostCategory;
       'api::prayer.prayer': ApiPrayerPrayer;
       'api::service.service': ApiServiceService;
       'api::survey.survey': ApiSurveySurvey;
