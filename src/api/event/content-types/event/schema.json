@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "events",
+  "info": {
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "Event",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "date": {
+      "type": "date"
+    },
+    "location": {
+      "type": "string"
+    },
+    "church": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::church.church",
+      "inversedBy": "events"
+    },
+    "uuid": {
+      "type": "customField",
+      "options": {
+        "uuid-format": "^[A-Za-z0-9]{8}$",
+        "disable-regenerate": true
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "time": {
+      "unique": false,
+      "type": "time",
+      "default": "09:00"
+    }
+  }
+}

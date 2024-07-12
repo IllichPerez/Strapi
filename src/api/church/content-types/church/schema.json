@@ -93,6 +93,32 @@
         "sabado",
         "domingo"
       ]
+    },
+    "announcements": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::announcement.announcement",
+      "mappedBy": "church"
+    },
+    "events": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event.event",
+      "mappedBy": "church"
+    },
+    "pastor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "church"
+    },
+    "uuid": {
+      "type": "customField",
+      "options": {
+        "uuid-format": "^[A-Za-z0-9]{8}$",
+        "disable-regenerate": true
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

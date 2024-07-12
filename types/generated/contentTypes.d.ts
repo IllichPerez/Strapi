@@ -762,6 +762,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     gender: Attribute.Enumeration<['hombre', 'mujer']>;
     em_title: Attribute.String;
+    church: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::church.church'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -819,6 +824,57 @@ export interface PluginI18NLocale extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiAnnouncementAnnouncement extends Schema.CollectionType {
+  collectionName: 'announcements';
+  info: {
+    singularName: 'announcement';
+    pluralName: 'announcements';
+    displayName: 'announcement';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    church: Attribute.Relation<
+      'api::announcement.announcement',
+      'manyToOne',
+      'api::church.church'
+    >;
+    uuid: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[A-Za-z0-9]{8}$';
+        'disable-regenerate': true;
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[A-Za-z0-9]{8}$';
+          'disable-regenerate': true;
+        }
+      >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::announcement.announcement',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::announcement.announcement',
       'oneToOne',
       'admin::user'
     > &
@@ -888,6 +944,36 @@ export interface ApiChurchChurch extends Schema.CollectionType {
     day_off: Attribute.Enumeration<
       ['lunes', 'martes', 'miercoles', 'jueves', 'viermes', 'sabado', 'domingo']
     >;
+    announcements: Attribute.Relation<
+      'api::church.church',
+      'oneToMany',
+      'api::announcement.announcement'
+    >;
+    events: Attribute.Relation<
+      'api::church.church',
+      'oneToMany',
+      'api::event.event'
+    >;
+    pastor: Attribute.Relation<
+      'api::church.church',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    uuid: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[A-Za-z0-9]{8}$';
+        'disable-regenerate': true;
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[A-Za-z0-9]{8}$';
+          'disable-regenerate': true;
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -964,6 +1050,62 @@ export interface ApiContributionContribution extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::contribution.contribution',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEventEvent extends Schema.CollectionType {
+  collectionName: 'events';
+  info: {
+    singularName: 'event';
+    pluralName: 'events';
+    displayName: 'Event';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    date: Attribute.Date;
+    location: Attribute.String;
+    church: Attribute.Relation<
+      'api::event.event',
+      'manyToOne',
+      'api::church.church'
+    >;
+    uuid: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[A-Za-z0-9]{8}$';
+        'disable-regenerate': true;
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[A-Za-z0-9]{8}$';
+          'disable-regenerate': true;
+        }
+      >;
+    image: Attribute.Media;
+    time: Attribute.Time & Attribute.DefaultTo<'09:00'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::event.event',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::event.event',
       'oneToOne',
       'admin::user'
     > &
@@ -1278,8 +1420,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::announcement.announcement': ApiAnnouncementAnnouncement;
       'api::church.church': ApiChurchChurch;
       'api::contribution.contribution': ApiContributionContribution;
+      'api::event.event': ApiEventEvent;
       'api::member-request.member-request': ApiMemberRequestMemberRequest;
       'api::ministry.ministry': ApiMinistryMinistry;
       'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
