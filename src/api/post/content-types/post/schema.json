@@ -47,6 +47,14 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::post-category.post-category"
+    },
+    "uuid": {
+      "type": "customField",
+      "options": {
+        "uuid-format": "^[A-Za-z0-9]{8}$",
+        "disable-regenerate": true
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

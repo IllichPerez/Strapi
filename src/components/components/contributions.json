@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_components_contributions",
+  "info": {
+    "displayName": "Contributions",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

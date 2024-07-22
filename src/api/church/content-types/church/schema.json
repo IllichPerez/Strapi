@@ -119,6 +119,11 @@
         "disable-regenerate": true
       },
       "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "contribution_purpose": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.contributions"
     }
   }
 }

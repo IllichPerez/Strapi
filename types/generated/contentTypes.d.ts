@@ -767,6 +767,9 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToOne',
       'api::church.church'
     >;
+    providerPicture: Attribute.String;
+    providerAccountId: Attribute.String & Attribute.Private;
+    providerName: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -974,6 +977,7 @@ export interface ApiChurchChurch extends Schema.CollectionType {
           'disable-regenerate': true;
         }
       >;
+    contribution_purpose: Attribute.Component<'components.contributions', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1269,6 +1273,21 @@ export interface ApiPostPost extends Schema.CollectionType {
       'oneToOne',
       'api::post-category.post-category'
     >;
+    uuid: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[A-Za-z0-9]{8}$';
+        'disable-regenerate': true;
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[A-Za-z0-9]{8}$';
+          'disable-regenerate': true;
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

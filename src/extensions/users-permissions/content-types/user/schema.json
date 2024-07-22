@@ -148,6 +148,16 @@
       "relation": "oneToOne",
       "target": "api::church.church",
       "mappedBy": "pastor"
+    },
+    "providerPicture": {
+      "type": "string"
+    },
+    "providerAccountId": {
+      "type": "string",
+      "private": true
+    },
+    "providerName": {
+      "type": "string"
     }
   }
 }
