@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "prayers",
+  "collectionName": "petitions",
   "info": {
-    "singularName": "prayer",
-    "pluralName": "prayers",
-    "displayName": "Prayer",
+    "singularName": "petition",
+    "pluralName": "petitions",
+    "displayName": "petition",
     "description": ""
   },
   "options": {
@@ -13,17 +13,22 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
-    "content": {
+    "description": {
       "type": "text"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "petitions"
     },
     "church": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::church.church",
-      "inversedBy": "prayers"
+      "inversedBy": "petitions"
     },
     "uuid": {
       "type": "customField",
@@ -32,6 +37,13 @@
         "disable-regenerate": true
       },
       "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "answer": {
+      "type": "text"
+    },
+    "read": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

@@ -158,6 +158,12 @@
     },
     "providerName": {
       "type": "string"
+    },
+    "petitions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::petition.petition",
+      "mappedBy": "user"
     }
   }
 }

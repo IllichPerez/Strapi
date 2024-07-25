@@ -124,6 +124,24 @@
       "type": "component",
       "repeatable": true,
       "component": "components.contributions"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course",
+      "mappedBy": "church"
+    },
+    "prayers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::prayer.prayer",
+      "mappedBy": "church"
+    },
+    "petitions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::petition.petition",
+      "mappedBy": "church"
     }
   }
 }

@@ -770,6 +770,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     providerPicture: Attribute.String;
     providerAccountId: Attribute.String & Attribute.Private;
     providerName: Attribute.String;
+    petitions: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::petition.petition'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -978,6 +983,21 @@ export interface ApiChurchChurch extends Schema.CollectionType {
         }
       >;
     contribution_purpose: Attribute.Component<'components.contributions', true>;
+    courses: Attribute.Relation<
+      'api::church.church',
+      'oneToMany',
+      'api::course.course'
+    >;
+    prayers: Attribute.Relation<
+      'api::church.church',
+      'oneToMany',
+      'api::prayer.prayer'
+    >;
+    petitions: Attribute.Relation<
+      'api::church.church',
+      'oneToMany',
+      'api::petition.petition'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1054,6 +1074,63 @@ export interface ApiContributionContribution extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::contribution.contribution',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCourseCourse extends Schema.CollectionType {
+  collectionName: 'courses';
+  info: {
+    singularName: 'course';
+    pluralName: 'courses';
+    displayName: 'course';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    duration: Attribute.String;
+    instructor: Attribute.String;
+    format: Attribute.Enumeration<['Online', 'Presencial', 'H\u00EDbrido']>;
+    seats: Attribute.BigInteger;
+    church: Attribute.Relation<
+      'api::course.course',
+      'manyToOne',
+      'api::church.church'
+    >;
+    cover: Attribute.Media;
+    uuid: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[A-Za-z0-9]{8}$';
+        'disable-regenerate': true;
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[A-Za-z0-9]{8}$';
+          'disable-regenerate': true;
+        }
+      >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::course.course',
       'oneToOne',
       'admin::user'
     > &
@@ -1245,6 +1322,65 @@ export interface ApiPaymentMethodPaymentMethod extends Schema.CollectionType {
   };
 }
 
+export interface ApiPetitionPetition extends Schema.CollectionType {
+  collectionName: 'petitions';
+  info: {
+    singularName: 'petition';
+    pluralName: 'petitions';
+    displayName: 'petition';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    user: Attribute.Relation<
+      'api::petition.petition',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    church: Attribute.Relation<
+      'api::petition.petition',
+      'manyToOne',
+      'api::church.church'
+    >;
+    uuid: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[A-Za-z0-9]{8}$';
+        'disable-regenerate': true;
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[A-Za-z0-9]{8}$';
+          'disable-regenerate': true;
+        }
+      >;
+    answer: Attribute.Text;
+    read: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::petition.petition',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::petition.petition',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPostPost extends Schema.CollectionType {
   collectionName: 'posts';
   info: {
@@ -1334,13 +1470,34 @@ export interface ApiPrayerPrayer extends Schema.CollectionType {
     singularName: 'prayer';
     pluralName: 'prayers';
     displayName: 'Prayer';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     title: Attribute.String & Attribute.Required;
-    content: Attribute.Blocks;
+    content: Attribute.Text;
+    church: Attribute.Relation<
+      'api::prayer.prayer',
+      'manyToOne',
+      'api::church.church'
+    >;
+    uuid: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[A-Za-z0-9]{8}$';
+        'disable-regenerate': true;
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[A-Za-z0-9]{8}$';
+          'disable-regenerate': true;
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1442,10 +1599,12 @@ declare module '@strapi/types' {
       'api::announcement.announcement': ApiAnnouncementAnnouncement;
       'api::church.church': ApiChurchChurch;
       'api::contribution.contribution': ApiContributionContribution;
+      'api::course.course': ApiCourseCourse;
       'api::event.event': ApiEventEvent;
       'api::member-request.member-request': ApiMemberRequestMemberRequest;
       'api::ministry.ministry': ApiMinistryMinistry;
       'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
+      'api::petition.petition': ApiPetitionPetition;
       'api::post.post': ApiPostPost;
       'api::post-category.post-category': ApiPostCategoryPostCategory;
       'api::prayer.prayer': ApiPrayerPrayer;
