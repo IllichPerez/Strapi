@@ -775,6 +775,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::petition.petition'
     >;
+    notes: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::note.note'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1292,6 +1297,36 @@ export interface ApiMinistryMinistry extends Schema.CollectionType {
   };
 }
 
+export interface ApiNoteNote extends Schema.CollectionType {
+  collectionName: 'notes';
+  info: {
+    singularName: 'note';
+    pluralName: 'notes';
+    displayName: 'note';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    source_id: Attribute.Integer;
+    source_type: Attribute.String;
+    content: Attribute.Text;
+    user: Attribute.Relation<
+      'api::note.note',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::note.note', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::note.note', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPaymentMethodPaymentMethod extends Schema.CollectionType {
   collectionName: 'payment_methods';
   info: {
@@ -1603,6 +1638,7 @@ declare module '@strapi/types' {
       'api::event.event': ApiEventEvent;
       'api::member-request.member-request': ApiMemberRequestMemberRequest;
       'api::ministry.ministry': ApiMinistryMinistry;
+      'api::note.note': ApiNoteNote;
       'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
       'api::petition.petition': ApiPetitionPetition;
       'api::post.post': ApiPostPost;

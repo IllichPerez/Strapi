@@ -164,6 +164,12 @@
       "relation": "oneToMany",
       "target": "api::petition.petition",
       "mappedBy": "user"
+    },
+    "notes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::note.note",
+      "mappedBy": "user"
     }
   }
 }
