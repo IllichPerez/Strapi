@@ -142,6 +142,12 @@
       "relation": "oneToMany",
       "target": "api::petition.petition",
       "mappedBy": "church"
+    },
+    "mentorships": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::mentorship.mentorship",
+      "mappedBy": "church"
     }
   }
 }

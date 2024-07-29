@@ -170,6 +170,12 @@
       "relation": "oneToMany",
       "target": "api::note.note",
       "mappedBy": "user"
+    },
+    "mentorships": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::mentorship.mentorship",
+      "mappedBy": "user"
     }
   }
 }

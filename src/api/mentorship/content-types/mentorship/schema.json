@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mentorships",
+  "info": {
+    "singularName": "mentorship",
+    "pluralName": "mentorships",
+    "displayName": "mentorship",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "mentorships"
+    },
+    "uuid": {
+      "type": "customField",
+      "options": {
+        "uuid-format": "^[A-Za-z0-9]{8}$",
+        "disable-regenerate": true
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "church": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::church.church",
+      "inversedBy": "mentorships"
+    },
+    "content": {
+      "type": "blocks"
+    },
+    "answer": {
+      "type": "blocks"
+    },
+    "read": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

@@ -780,6 +780,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::note.note'
     >;
+    mentorships: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::mentorship.mentorship'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1002,6 +1007,11 @@ export interface ApiChurchChurch extends Schema.CollectionType {
       'api::church.church',
       'oneToMany',
       'api::petition.petition'
+    >;
+    mentorships: Attribute.Relation<
+      'api::church.church',
+      'oneToMany',
+      'api::mentorship.mentorship'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1228,6 +1238,65 @@ export interface ApiMemberRequestMemberRequest extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::member-request.member-request',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMentorshipMentorship extends Schema.CollectionType {
+  collectionName: 'mentorships';
+  info: {
+    singularName: 'mentorship';
+    pluralName: 'mentorships';
+    displayName: 'mentorship';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    user: Attribute.Relation<
+      'api::mentorship.mentorship',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    uuid: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[A-Za-z0-9]{8}$';
+        'disable-regenerate': true;
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[A-Za-z0-9]{8}$';
+          'disable-regenerate': true;
+        }
+      >;
+    church: Attribute.Relation<
+      'api::mentorship.mentorship',
+      'manyToOne',
+      'api::church.church'
+    >;
+    content: Attribute.Blocks;
+    answer: Attribute.Blocks;
+    read: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::mentorship.mentorship',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::mentorship.mentorship',
       'oneToOne',
       'admin::user'
     > &
@@ -1637,6 +1706,7 @@ declare module '@strapi/types' {
       'api::course.course': ApiCourseCourse;
       'api::event.event': ApiEventEvent;
       'api::member-request.member-request': ApiMemberRequestMemberRequest;
+      'api::mentorship.mentorship': ApiMentorshipMentorship;
       'api::ministry.ministry': ApiMinistryMinistry;
       'api::note.note': ApiNoteNote;
       'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
