@@ -148,6 +148,9 @@
       "relation": "oneToMany",
       "target": "api::mentorship.mentorship",
       "mappedBy": "church"
+    },
+    "website": {
+      "type": "string"
     }
   }
 }

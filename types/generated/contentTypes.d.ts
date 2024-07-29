@@ -1013,6 +1013,7 @@ export interface ApiChurchChurch extends Schema.CollectionType {
       'oneToMany',
       'api::mentorship.mentorship'
     >;
+    website: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
