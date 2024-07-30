@@ -176,6 +176,12 @@
       "relation": "oneToMany",
       "target": "api::mentorship.mentorship",
       "mappedBy": "user"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::course.course",
+      "mappedBy": "participants"
     }
   }
 }
