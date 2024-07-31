@@ -120,18 +120,6 @@
     "em_ministerial_rank": {
       "type": "string"
     },
-    "ministries": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::ministry.ministry",
-      "inversedBy": "users"
-    },
-    "ministry": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::ministry.ministry",
-      "inversedBy": "admins"
-    },
     "gender": {
       "type": "enumeration",
       "enum": [
@@ -182,6 +170,18 @@
       "relation": "manyToMany",
       "target": "api::course.course",
       "mappedBy": "participants"
+    },
+    "ministries": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::ministry.ministry",
+      "mappedBy": "members"
+    },
+    "ministry": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::ministry.ministry",
+      "mappedBy": "admin"
     }
   }
 }

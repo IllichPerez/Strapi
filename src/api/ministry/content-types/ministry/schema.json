@@ -25,25 +25,25 @@
       "target": "api::church.church",
       "inversedBy": "ministries"
     },
-    "users": {
+    "members": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
-      "mappedBy": "ministries"
+      "inversedBy": "ministries"
     },
     "uuid": {
       "type": "customField",
       "options": {
         "disable-regenerate": true,
-        "uuid-format": "^\\d{10}$"
+        "uuid-format": "^[A-Za-z0-9]{8}$"
       },
       "customField": "plugin::strapi-advanced-uuid.uuid"
     },
-    "admins": {
+    "admin": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
-      "mappedBy": "ministry"
+      "inversedBy": "ministry"
     }
   }
 }

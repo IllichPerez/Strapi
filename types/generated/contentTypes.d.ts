@@ -750,16 +750,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       }>;
     em_years_of_ministry: Attribute.Integer;
     em_ministerial_rank: Attribute.String;
-    ministries: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'manyToMany',
-      'api::ministry.ministry'
-    >;
-    ministry: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'manyToOne',
-      'api::ministry.ministry'
-    >;
     gender: Attribute.Enumeration<['hombre', 'mujer']>;
     em_title: Attribute.String;
     church: Attribute.Relation<
@@ -789,6 +779,16 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.user',
       'manyToMany',
       'api::course.course'
+    >;
+    ministries: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToMany',
+      'api::ministry.ministry'
+    >;
+    ministry: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::ministry.ministry'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1334,7 +1334,7 @@ export interface ApiMinistryMinistry extends Schema.CollectionType {
       'manyToOne',
       'api::church.church'
     >;
-    users: Attribute.Relation<
+    members: Attribute.Relation<
       'api::ministry.ministry',
       'manyToMany',
       'plugin::users-permissions.user'
@@ -1344,19 +1344,19 @@ export interface ApiMinistryMinistry extends Schema.CollectionType {
       undefined,
       {
         'disable-regenerate': true;
-        'uuid-format': '^\\d{10}$';
+        'uuid-format': '^[A-Za-z0-9]{8}$';
       }
     > &
       Attribute.CustomField<
         'plugin::strapi-advanced-uuid.uuid',
         {
           'disable-regenerate': true;
-          'uuid-format': '^\\d{10}$';
+          'uuid-format': '^[A-Za-z0-9]{8}$';
         }
       >;
-    admins: Attribute.Relation<
+    admin: Attribute.Relation<
       'api::ministry.ministry',
-      'oneToMany',
+      'oneToOne',
       'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
