@@ -1019,6 +1019,7 @@ export interface ApiChurchChurch extends Schema.CollectionType {
       'api::mentorship.mentorship'
     >;
     website: Attribute.String;
+    logo: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
