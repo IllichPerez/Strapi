@@ -30,13 +30,6 @@
       "target": "plugin::users-permissions.user",
       "mappedBy": "belongs_to_the_church"
     },
-    "invitation_id": {
-      "type": "customField",
-      "options": {
-        "uuid-format": "^(?=.*\\d)(?=.*[a-zA-Z])[\\dA-Za-z]{4}-[a-zA-Z\\d]{3}-[\\dA-Za-z]{4}$"
-      },
-      "customField": "plugin::strapi-advanced-uuid.uuid"
-    },
     "posts": {
       "type": "relation",
       "relation": "oneToMany",
@@ -115,8 +108,8 @@
     "uuid": {
       "type": "customField",
       "options": {
-        "uuid-format": "^[A-Za-z0-9]{8}$",
-        "disable-regenerate": true
+        "uuid-format": "",
+        "disable-regenerate": false
       },
       "customField": "plugin::strapi-advanced-uuid.uuid"
     },
@@ -153,11 +146,18 @@
       "type": "string"
     },
     "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "latitude": {
+      "type": "decimal"
+    },
+    "longitude": {
+      "type": "decimal"
     }
   }
 }

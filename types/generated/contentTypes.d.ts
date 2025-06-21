@@ -925,19 +925,6 @@ export interface ApiChurchChurch extends Schema.CollectionType {
       'oneToMany',
       'plugin::users-permissions.user'
     >;
-    invitation_id: Attribute.UID<
-      undefined,
-      undefined,
-      {
-        'uuid-format': '^(?=.*\\d)(?=.*[a-zA-Z])[\\dA-Za-z]{4}-[a-zA-Z\\d]{3}-[\\dA-Za-z]{4}$';
-      }
-    > &
-      Attribute.CustomField<
-        'plugin::strapi-advanced-uuid.uuid',
-        {
-          'uuid-format': '^(?=.*\\d)(?=.*[a-zA-Z])[\\dA-Za-z]{4}-[a-zA-Z\\d]{3}-[\\dA-Za-z]{4}$';
-        }
-      >;
     posts: Attribute.Relation<
       'api::church.church',
       'oneToMany',
@@ -986,15 +973,15 @@ export interface ApiChurchChurch extends Schema.CollectionType {
       undefined,
       undefined,
       {
-        'uuid-format': '^[A-Za-z0-9]{8}$';
-        'disable-regenerate': true;
+        'uuid-format': '';
+        'disable-regenerate': false;
       }
     > &
       Attribute.CustomField<
         'plugin::strapi-advanced-uuid.uuid',
         {
-          'uuid-format': '^[A-Za-z0-9]{8}$';
-          'disable-regenerate': true;
+          'uuid-format': '';
+          'disable-regenerate': false;
         }
       >;
     contribution_purpose: Attribute.Component<'components.contributions', true>;
@@ -1020,6 +1007,8 @@ export interface ApiChurchChurch extends Schema.CollectionType {
     >;
     website: Attribute.String;
     logo: Attribute.Media;
+    latitude: Attribute.Decimal;
+    longitude: Attribute.Decimal;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
