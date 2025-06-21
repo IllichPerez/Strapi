@@ -1007,8 +1007,8 @@ export interface ApiChurchChurch extends Schema.CollectionType {
     >;
     website: Attribute.String;
     logo: Attribute.Media;
-    latitude: Attribute.Decimal;
-    longitude: Attribute.Decimal;
+    latitude: Attribute.Float;
+    longitude: Attribute.Float;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
