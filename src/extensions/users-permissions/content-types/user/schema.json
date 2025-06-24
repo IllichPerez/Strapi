@@ -182,6 +182,14 @@
       "relation": "oneToOne",
       "target": "api::ministry.ministry",
       "mappedBy": "admin"
+    },
+    "churchApprovalStatus": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "rejected",
+        "approved"
+      ]
     }
   }
 }

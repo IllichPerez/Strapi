@@ -790,6 +790,9 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToOne',
       'api::ministry.ministry'
     >;
+    churchApprovalStatus: Attribute.Enumeration<
+      ['pending', 'rejected', 'approved']
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
