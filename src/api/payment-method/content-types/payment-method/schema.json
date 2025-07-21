@@ -4,7 +4,8 @@
   "info": {
     "singularName": "payment-method",
     "pluralName": "payment-methods",
-    "displayName": "Payment methods"
+    "displayName": "Payment methods",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,6 +16,11 @@
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "available": {
+      "type": "boolean",
+      "default": true,
+      "required": false
     }
   }
 }

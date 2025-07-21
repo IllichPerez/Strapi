@@ -158,6 +158,12 @@
     },
     "longitude": {
       "type": "float"
+    },
+    "payment_infos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::payment-info.payment-info",
+      "mappedBy": "church"
     }
   }
 }

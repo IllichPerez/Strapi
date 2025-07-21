@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "payment_infos",
+  "info": {
+    "singularName": "payment-info",
+    "pluralName": "payment-infos",
+    "displayName": "Payment info"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "church": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::church.church",
+      "inversedBy": "payment_infos"
+    },
+    "payment_method": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::payment-method.payment-method"
+    },
+    "holder_name": {
+      "type": "string"
+    },
+    "account_number": {
+      "type": "string"
+    },
+    "bank_name": {
+      "type": "string"
+    },
+    "rif": {
+      "type": "string"
+    },
+    "phone_number": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "enumeration",
+      "enum": [
+        "bs",
+        "usd",
+        "eur"
+      ]
+    },
+    "email": {
+      "type": "email"
+    }
+  }
+}

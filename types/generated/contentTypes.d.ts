@@ -1012,6 +1012,11 @@ export interface ApiChurchChurch extends Schema.CollectionType {
     logo: Attribute.Media;
     latitude: Attribute.Float;
     longitude: Attribute.Float;
+    payment_infos: Attribute.Relation<
+      'api::church.church',
+      'oneToMany',
+      'api::payment-info.payment-info'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1449,18 +1454,65 @@ export interface ApiNoteNote extends Schema.CollectionType {
   };
 }
 
+export interface ApiPaymentInfoPaymentInfo extends Schema.CollectionType {
+  collectionName: 'payment_infos';
+  info: {
+    singularName: 'payment-info';
+    pluralName: 'payment-infos';
+    displayName: 'Payment info';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    church: Attribute.Relation<
+      'api::payment-info.payment-info',
+      'manyToOne',
+      'api::church.church'
+    >;
+    payment_method: Attribute.Relation<
+      'api::payment-info.payment-info',
+      'oneToOne',
+      'api::payment-method.payment-method'
+    >;
+    holder_name: Attribute.String;
+    account_number: Attribute.String;
+    bank_name: Attribute.String;
+    rif: Attribute.String;
+    phone_number: Attribute.String;
+    currency: Attribute.Enumeration<['bs', 'usd', 'eur']>;
+    email: Attribute.Email;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::payment-info.payment-info',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::payment-info.payment-info',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPaymentMethodPaymentMethod extends Schema.CollectionType {
   collectionName: 'payment_methods';
   info: {
     singularName: 'payment-method';
     pluralName: 'payment-methods';
     displayName: 'Payment methods';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     title: Attribute.String & Attribute.Required & Attribute.Unique;
+    available: Attribute.Boolean & Attribute.DefaultTo<true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1763,6 +1815,7 @@ declare module '@strapi/types' {
       'api::mentorship.mentorship': ApiMentorshipMentorship;
       'api::ministry.ministry': ApiMinistryMinistry;
       'api::note.note': ApiNoteNote;
+      'api::payment-info.payment-info': ApiPaymentInfoPaymentInfo;
       'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
       'api::petition.petition': ApiPetitionPetition;
       'api::post.post': ApiPostPost;
