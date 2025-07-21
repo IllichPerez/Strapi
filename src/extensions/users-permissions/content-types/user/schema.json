@@ -192,7 +192,7 @@
       ]
     },
     "ci": {
-      "type": "integer"
+      "type": "biginteger"
     },
     "ci_prefix": {
       "type": "enumeration",
