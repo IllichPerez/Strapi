@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "dispersions",
+  "info": {
+    "singularName": "dispersion",
+    "pluralName": "dispersions",
+    "displayName": "dispersion"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pagoflash_dispersion_batch": {
+      "type": "string"
+    },
+    "contributions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::contribution.contribution",
+      "inversedBy": "dispersions"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "exitoso",
+        "fallido"
+      ]
+    }
+  }
+}

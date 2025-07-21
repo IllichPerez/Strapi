@@ -40,8 +40,8 @@
     "uuid": {
       "type": "customField",
       "options": {
-        "disable-regenerate": false,
-        "uuid-format": "^\\d{10}$"
+        "disable-regenerate": true,
+        "uuid-format": ""
       },
       "customField": "plugin::strapi-advanced-uuid.uuid"
     },
@@ -54,6 +54,36 @@
     },
     "destination": {
       "type": "string"
+    },
+    "bs": {
+      "type": "float"
+    },
+    "pagoflash_order_id": {
+      "type": "string"
+    },
+    "pagoflash_order_code": {
+      "type": "string"
+    },
+    "pagoflash_order_expiresAt": {
+      "type": "string"
+    },
+    "pagoflash_order_status": {
+      "type": "string"
+    },
+    "pagoflash_order_payerPhone": {
+      "type": "string"
+    },
+    "pagoflash_order_bankCode": {
+      "type": "string"
+    },
+    "dispersions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::dispersion.dispersion",
+      "mappedBy": "contributions"
+    },
+    "dispersed": {
+      "type": "boolean"
     }
   }
 }

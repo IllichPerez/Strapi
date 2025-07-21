@@ -1063,20 +1063,33 @@ export interface ApiContributionContribution extends Schema.CollectionType {
       undefined,
       undefined,
       {
-        'disable-regenerate': false;
-        'uuid-format': '^\\d{10}$';
+        'disable-regenerate': true;
+        'uuid-format': '';
       }
     > &
       Attribute.CustomField<
         'plugin::strapi-advanced-uuid.uuid',
         {
-          'disable-regenerate': false;
-          'uuid-format': '^\\d{10}$';
+          'disable-regenerate': true;
+          'uuid-format': '';
         }
       >;
     confirmed: Attribute.Boolean;
     amount: Attribute.Float & Attribute.Required;
     destination: Attribute.String;
+    bs: Attribute.Float;
+    pagoflash_order_id: Attribute.String;
+    pagoflash_order_code: Attribute.String;
+    pagoflash_order_expiresAt: Attribute.String;
+    pagoflash_order_status: Attribute.String;
+    pagoflash_order_payerPhone: Attribute.String;
+    pagoflash_order_bankCode: Attribute.String;
+    dispersions: Attribute.Relation<
+      'api::contribution.contribution',
+      'manyToMany',
+      'api::dispersion.dispersion'
+    >;
+    dispersed: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1150,6 +1163,42 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDispersionDispersion extends Schema.CollectionType {
+  collectionName: 'dispersions';
+  info: {
+    singularName: 'dispersion';
+    pluralName: 'dispersions';
+    displayName: 'dispersion';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    pagoflash_dispersion_batch: Attribute.String;
+    contributions: Attribute.Relation<
+      'api::dispersion.dispersion',
+      'manyToMany',
+      'api::contribution.contribution'
+    >;
+    status: Attribute.Enumeration<['exitoso', 'fallido']>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::dispersion.dispersion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::dispersion.dispersion',
       'oneToOne',
       'admin::user'
     > &
@@ -1708,6 +1757,7 @@ declare module '@strapi/types' {
       'api::church.church': ApiChurchChurch;
       'api::contribution.contribution': ApiContributionContribution;
       'api::course.course': ApiCourseCourse;
+      'api::dispersion.dispersion': ApiDispersionDispersion;
       'api::event.event': ApiEventEvent;
       'api::member-request.member-request': ApiMemberRequestMemberRequest;
       'api::mentorship.mentorship': ApiMentorshipMentorship;
