@@ -1064,7 +1064,7 @@ export interface ApiContributionContribution extends Schema.CollectionType {
       'oneToOne',
       'api::payment-method.payment-method'
     >;
-    date: Attribute.Date & Attribute.Required;
+    date: Attribute.Date;
     reference_number: Attribute.String & Attribute.Required;
     uuid: Attribute.UID<
       undefined,
