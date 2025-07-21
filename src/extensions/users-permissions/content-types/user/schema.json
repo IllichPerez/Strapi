@@ -190,6 +190,16 @@
         "rejected",
         "approved"
       ]
+    },
+    "ci": {
+      "type": "integer"
+    },
+    "ci_prefix": {
+      "type": "enumeration",
+      "enum": [
+        "V",
+        "E"
+      ]
     }
   }
 }

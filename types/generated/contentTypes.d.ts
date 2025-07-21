@@ -793,6 +793,8 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     churchApprovalStatus: Attribute.Enumeration<
       ['pending', 'rejected', 'approved']
     >;
+    ci: Attribute.Integer;
+    ci_prefix: Attribute.Enumeration<['V', 'E']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
