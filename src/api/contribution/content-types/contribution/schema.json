@@ -84,6 +84,15 @@
     },
     "dispersed": {
       "type": "boolean"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "confirmed",
+        "rejected",
+        "canceled"
+      ]
     }
   }
 }

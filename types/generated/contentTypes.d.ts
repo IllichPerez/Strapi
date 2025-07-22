@@ -1097,6 +1097,9 @@ export interface ApiContributionContribution extends Schema.CollectionType {
       'api::dispersion.dispersion'
     >;
     dispersed: Attribute.Boolean;
+    status: Attribute.Enumeration<
+      ['pending', 'confirmed', 'rejected', 'canceled']
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
