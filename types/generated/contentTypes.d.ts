@@ -1019,6 +1019,8 @@ export interface ApiChurchChurch extends Schema.CollectionType {
       'oneToMany',
       'api::payment-info.payment-info'
     >;
+    subscription_active: Attribute.Boolean;
+    subscription_expiration: Attribute.Date;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1198,6 +1200,11 @@ export interface ApiDispersionDispersion extends Schema.CollectionType {
       'api::contribution.contribution'
     >;
     status: Attribute.Enumeration<['exitoso', 'fallido']>;
+    suscripciones: Attribute.Relation<
+      'api::dispersion.dispersion',
+      'manyToMany',
+      'api::subscription.subscription'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1761,6 +1768,71 @@ export interface ApiServiceService extends Schema.CollectionType {
   };
 }
 
+export interface ApiSubscriptionSubscription extends Schema.CollectionType {
+  collectionName: 'subscriptions';
+  info: {
+    singularName: 'subscription';
+    pluralName: 'subscriptions';
+    displayName: 'Suscripciones';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    church: Attribute.Relation<
+      'api::subscription.subscription',
+      'oneToOne',
+      'api::church.church'
+    >;
+    amount: Attribute.Decimal;
+    bs: Attribute.Float;
+    status: Attribute.Enumeration<
+      ['pending', 'confirmed', 'rejected', 'canceled']
+    >;
+    pagoflash_order_id: Attribute.String;
+    pagoflash_order_code: Attribute.String;
+    pagoflash_order_expiresAt: Attribute.String;
+    pagoflash_order_status: Attribute.String;
+    pagoflash_order_payerPhone: Attribute.String;
+    pagoflash_order_bankCode: Attribute.String;
+    dispersions: Attribute.Relation<
+      'api::subscription.subscription',
+      'manyToMany',
+      'api::dispersion.dispersion'
+    >;
+    dispersed: Attribute.Boolean;
+    uuid: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'disable-regenerate': true;
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-regenerate': true;
+        }
+      >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::subscription.subscription',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::subscription.subscription',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiSurveySurvey extends Schema.CollectionType {
   collectionName: 'surveys';
   info: {
@@ -1827,6 +1899,7 @@ declare module '@strapi/types' {
       'api::post-category.post-category': ApiPostCategoryPostCategory;
       'api::prayer.prayer': ApiPrayerPrayer;
       'api::service.service': ApiServiceService;
+      'api::subscription.subscription': ApiSubscriptionSubscription;
       'api::survey.survey': ApiSurveySurvey;
     }
   }

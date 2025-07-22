@@ -1,0 +1,70 @@
+{
+  "kind": "collectionType",
+  "collectionName": "subscriptions",
+  "info": {
+    "singularName": "subscription",
+    "pluralName": "subscriptions",
+    "displayName": "Suscripciones",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "church": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::church.church"
+    },
+    "amount": {
+      "type": "decimal"
+    },
+    "bs": {
+      "type": "float"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "confirmed",
+        "rejected",
+        "canceled"
+      ]
+    },
+    "pagoflash_order_id": {
+      "type": "string"
+    },
+    "pagoflash_order_code": {
+      "type": "string"
+    },
+    "pagoflash_order_expiresAt": {
+      "type": "string"
+    },
+    "pagoflash_order_status": {
+      "type": "string"
+    },
+    "pagoflash_order_payerPhone": {
+      "type": "string"
+    },
+    "pagoflash_order_bankCode": {
+      "type": "string"
+    },
+    "dispersions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::dispersion.dispersion",
+      "inversedBy": "suscripciones"
+    },
+    "dispersed": {
+      "type": "boolean"
+    },
+    "uuid": {
+      "type": "customField",
+      "options": {
+        "disable-regenerate": true
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid"
+    }
+  }
+}

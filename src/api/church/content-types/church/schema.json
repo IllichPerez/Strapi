@@ -164,6 +164,12 @@
       "relation": "oneToMany",
       "target": "api::payment-info.payment-info",
       "mappedBy": "church"
+    },
+    "subscription_active": {
+      "type": "boolean"
+    },
+    "subscription_expiration": {
+      "type": "date"
     }
   }
 }
