@@ -1,6 +1,7 @@
 module.exports = {
   afterUpdate(event) {
     const { result } = event;
+    console.log(result)
     const status = result.status;
     const churchID = result.church.id;
 
