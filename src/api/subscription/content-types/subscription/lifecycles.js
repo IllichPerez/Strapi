@@ -1,8 +1,9 @@
 module.exports = {
   afterUpdate(event) {
-    const { result } = event;
-    console.log('Evento', event)
-    console.log('Resultado', result)
+    const { model, result } = event;
+    console.log('Model', model.attributes)
+    console.log('Result', result)
+    // console.log('Resultado', result)
     // const status = result.status;
     // const churchID = result.church.id;
 
