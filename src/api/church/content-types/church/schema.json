@@ -57,7 +57,7 @@
     },
     "ministry_denomination": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "phone": {
       "type": "string",

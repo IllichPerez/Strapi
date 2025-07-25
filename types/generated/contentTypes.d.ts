@@ -947,7 +947,7 @@ export interface ApiChurchChurch extends Schema.CollectionType {
     >;
     billing_address: Attribute.String;
     email: Attribute.Email & Attribute.Required;
-    ministry_denomination: Attribute.String & Attribute.Required;
+    ministry_denomination: Attribute.String;
     phone: Attribute.String & Attribute.Required;
     schedules: Attribute.Text;
     dogmatic_description: Attribute.Text;
