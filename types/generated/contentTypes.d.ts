@@ -795,6 +795,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     ci: Attribute.BigInteger;
     ci_prefix: Attribute.Enumeration<['V', 'E']>;
+    lastSession: Attribute.Date;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

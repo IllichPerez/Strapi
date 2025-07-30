@@ -200,6 +200,9 @@
         "V",
         "E"
       ]
+    },
+    "lastSession": {
+      "type": "date"
     }
   }
 }
