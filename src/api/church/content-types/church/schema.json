@@ -170,6 +170,9 @@
     },
     "subscription_expiration": {
       "type": "date"
+    },
+    "pagoflash_accountId": {
+      "type": "string"
     }
   }
 }

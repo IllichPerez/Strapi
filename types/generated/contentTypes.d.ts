@@ -1022,6 +1022,7 @@ export interface ApiChurchChurch extends Schema.CollectionType {
     >;
     subscription_active: Attribute.Boolean;
     subscription_expiration: Attribute.Date;
+    pagoflash_accountId: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
