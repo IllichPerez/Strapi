@@ -93,6 +93,13 @@
         "rejected",
         "canceled"
       ]
+    },
+    "concept": {
+      "type": "enumeration",
+      "enum": [
+        "contribution",
+        "subscription"
+      ]
     }
   }
 }

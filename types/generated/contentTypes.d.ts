@@ -1104,6 +1104,7 @@ export interface ApiContributionContribution extends Schema.CollectionType {
     status: Attribute.Enumeration<
       ['pending', 'confirmed', 'rejected', 'canceled']
     >;
+    concept: Attribute.Enumeration<['contribution', 'subscription']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
