@@ -20,14 +20,14 @@ module.exports = ({ env }) => ({
   },
   email: {
     config: {
-      provider: 'sendgrid',
+      provider: 'strapi-provider-email-resend',
       providerOptions: {
-        apiKey: env('SENDGRID_API_KEY'),
+        apiKey: env('RESEND_API_KEY'), // Required
       },
       settings: {
-        defaultFrom: 'dev@tuiglesia.app',
-        defaultReplyTo: 'dev@tuiglesia.app',
+        defaultFrom: 'email@email.tuiglesia.app',
+        defaultReplyTo: 'email@email.tuiglesia.app',
       },
-    },
+    }
   },
 });
